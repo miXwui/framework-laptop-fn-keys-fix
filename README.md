@@ -59,7 +59,7 @@ sudo cp 70-keyboard-framework-fix.hwdb /etc/udev/hwdb.d && sudo systemd-hwdb upd
 
 ## Brightness Down / Up keys fix
 
-### [Link to custom driver](driver/README.md)
+### [Link to custom driver](driver/)
 
 ## Keys fixed
 
