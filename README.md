@@ -8,7 +8,7 @@ To fix all the keys except `Brightness Down`, `Brightness Up`, and `Projector` u
 
 1. Clone this project
 2. `cd` folder and run  
-   `sudo cp 70-keyboard-framework-fix.hwdb  /etc/udev/hwdb.d` or just do it manually by
+   `sudo cp 70-keyboard-framework-fix.hwdb /etc/udev/hwdb.d` or just do it manually by
    1. Creating `/etc/udev/hwdb.d/70-keyboard-framework-fix`
    2. Paste in this file [70-keyboard-framework-fix.hwdb](70-keyboard-framework-fix.hwdb)
 3. Run  
@@ -50,6 +50,12 @@ To fix all the keys except `Brightness Down`, `Brightness Up`, and `Projector` u
    E: KEYBOARD_KEY_d3=!delete
    E: KEYBOARD_KEY_ed=!media
    ````
+
+### Speedrun (use at your discretion)
+
+```console
+sudo cp 70-keyboard-framework-fix.hwdb /etc/udev/hwdb.d && sudo systemd-hwdb update && sudo udevadm trigger --verbose --sysname-match="event*" && sudo systemd-hwdb update && sudo udevadm trigger --verbose --sysname-match="event*" && udevadm info  /sys/class/input/event2
+```
 
 ## Brightness Down / Up keys fix
 

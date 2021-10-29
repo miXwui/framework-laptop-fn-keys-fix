@@ -13,30 +13,45 @@ Custom HID Quirks Driver that replaces for the hid-generic driver the Framework 
 
 ## tldr speedrun  
 
-1. Clone this project
-2. `cd` folder and run `sudo mv 70-keyboard-framework-fix.hwdb  /etc/udev/hwdb.d`
-3. Run `sudo systemd-hwdb update && sudo udevadm trigger --verbose --sysname-match="event*"` (weird glitch where this may need to be run more than once)
-4. Verify changes set with:
-   `udevadm info  /sys/class/input/event2`
-
-   ```console
-   E: KEYBOARD_KEY_3b=!F1
-   E: KEYBOARD_KEY_3c=!F2
-   E: KEYBOARD_KEY_3d=!F3
-   ... (rest of KEYBOARD_KEY_*=*)
-   E: KEYBOARD_KEY_d2=!insert
-   E: KEYBOARD_KEY_d3=!delete
-   E: KEYBOARD_KEY_ed=!media
-   ````
-
-
-5. `cd` into it
-6. run `make`
-7. Install either:
+1. Install the Linux headers for the currently running kernel.  
+   e.g. on Fedora, make sure `kernel-devel` and `kernel-headers` are installed:  
+   `sudo dnf in kernel-devel kernel-headers`
+2. Clone this project
+3. `cd` into `driver` folder
+4. run `make`
+5. Install either:
    - only for the current kernel:  
    [Loading with `modprobe`](#loading-with-modprobe)  
    - to persist across kernel changes:  
    [Persisting Across Kernel Updates with DKMS](#persisting-across-kernel-updates-with-dkms)
+
+## *even speedier* (use at your discretion)
+
+```console
+sudo dnf -y in kernel-devel kernel-headers
+```
+
+- ### install only for the current kernel with `modprobe`
+
+   `cd` into `driver` folder and run:  
+
+   ```console
+   make clean && make && sudo make install && sudo modprobe hid_framework && echo hid_framework | sudo tee /etc/modules-load.d/hid-framework.conf
+   ```
+
+- ### install only to persist across kernel changes with `DKMS`
+
+   Ensure `dkms` is installed:  
+
+   ```console
+   sudo dnf -y in dkms
+   ```
+
+   `cd` into `driver` folder and run:
+
+   ```console
+   sudo mkdir -p /usr/src/hid-framework-1.0 && sudo cp -R ./* /usr/src/hid-framework-1.0 && sudo dkms add -m hid-framework -v 1.0 && sudo dkms build -m hid-framework -v 1.0 && sudo dkms install -m hid-framework -v 1.0 && dkms status
+   ```
 
 ## Details
 
@@ -81,7 +96,7 @@ All other events, such as the airplane mode key, go through normally.
    e.g. on Fedora, make sure `kernel-devel` and `kernel-headers` are installed:  
    `sudo dnf in kernel-devel kernel-headers`
 
-2. `cd` into the directory and run `make`. This will build the module from source. After successful build, you can load with `insmod` or `modprobe`. `modprobe` is recommended over `insmod`, and can be setup to persist across reboots. However, if you want to install and automatically remake/persist after kernel update, skip to [Persisting Across Kernel Updates with DKMS](#persisting-across-kernel-updates-with-dkms).
+2. `cd` into `driver` folder and run `make`. This will build the module from source. After successful build, you can load with `insmod` or `modprobe`. `modprobe` is recommended over `insmod`, and can be setup to persist across reboots. However, if you want to install and automatically remake/persist after kernel update, skip to [Persisting Across Kernel Updates with DKMS](#persisting-across-kernel-updates-with-dkms).
 
 ### Loading with With `insmod` (not recommended)
 
@@ -120,7 +135,7 @@ Note: this will need to be reinstalled with a kernel update. See next section if
 Uninstall:  
 
 1. `sudo modprobe -r hid_framework`  
-2. `cd` into this project directory and run `sudo make uninstall`  
+2. `cd` into `driver` folder and run `sudo make uninstall`  
 3. `sudo rm /etc/modules-load.d/hid-framework.conf`  
 
 ## Persisting Across Kernel Updates with DKMS
@@ -133,7 +148,7 @@ Using DKMS
 2. Create a directory `/usr/src/<module>-<module-version>/`  
    `sudo mkdir /usr/src/hid-framework-1.0`
 
-3. `cd` into directory and clone this project (without the parent folder) into the directory:  
+3. `cd` into `driver` folder and clone this project (without the parent folder) into the directory:  
    `git clone origin-url .`
 
 4. Add the `<module>/<module-version>` to the DKMS tree:  
@@ -168,7 +183,7 @@ Using DKMS
    depmod....
    ```
   
-7. Check status `dmks status`
+7. Check status `dkms status`
 
    ```console
    hid-framework/1.0, 5.14.14-200.fc34.x86_64, x86_64: installed
@@ -197,7 +212,7 @@ hid-framework.ko.xz:
 hid-framework/1.0, 5.14.14-200.fc34.x86_64, x86_64: built
 ```
 
-To remove:
+To remove:  
 `sudo dkms remove -m hid-framework -v 1.0`
 
 ```console
