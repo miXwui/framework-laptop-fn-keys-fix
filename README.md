@@ -4,6 +4,8 @@ Keys that have another function ability can stick on Linux, as described in this
 
 ## Fixing most keys by forcing synthetic key release
 
+Read documentation here: <https://github.com/systemd/systemd/blob/main/hwdb.d/60-keyboard.hwdb>
+
 To fix all the keys except `Brightness Down`, `Brightness Up`, and `Projector` using systemd/udev's synthetic force release ability:  
 
 1. Clone this project
