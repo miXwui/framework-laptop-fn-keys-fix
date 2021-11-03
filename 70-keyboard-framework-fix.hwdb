@@ -1,17 +1,7 @@
 # Fix for Fn keys sticking on Framework laptop
 evdev:atkbd:dmi:bvn*:bvr*:bd*:svnFramework:pnLaptop:pvr*:*
 evdev:input:b0011v0001p0001*
-# Function lock off fixes
- KEYBOARD_KEY_a0=!mute         # On F1 key
- KEYBOARD_KEY_ae=!volumedown   # On F2 key
- KEYBOARD_KEY_b0=!volumeup     # On F3 key
- KEYBOARD_KEY_90=!previoussong # On F4 key
- KEYBOARD_KEY_a2=!playpause    # On F5 key
- KEYBOARD_KEY_99=!nextsong     # On F6 key
- KEYBOARD_KEY_b7=!sysrq        # On F11 key
- KEYBOARD_KEY_ed=!media        # On F12 key
- KEYBOARD_KEY_d2=!insert       # On Delete key
-# Function lock on fixes
+# Primary function fixes
  KEYBOARD_KEY_3b=!F1           # F1
  KEYBOARD_KEY_3c=!F2           # F2
  KEYBOARD_KEY_3d=!F3           # F3
@@ -25,6 +15,16 @@ evdev:input:b0011v0001p0001*
  KEYBOARD_KEY_57=!F11          # F11
  KEYBOARD_KEY_58=!F12          # F12
  KEYBOARD_KEY_d3=!delete       # Delete key
+# Secondary function fixes
+ KEYBOARD_KEY_a0=!mute         # On F1 key
+ KEYBOARD_KEY_ae=!volumedown   # On F2 key
+ KEYBOARD_KEY_b0=!volumeup     # On F3 key
+ KEYBOARD_KEY_90=!previoussong # On F4 key
+ KEYBOARD_KEY_a2=!playpause    # On F5 key
+ KEYBOARD_KEY_99=!nextsong     # On F6 key
+ KEYBOARD_KEY_b7=!sysrq        # On F11 key
+ KEYBOARD_KEY_ed=!media        # On F12 key
+ KEYBOARD_KEY_d2=!insert       # On Delete key
 # Arrow keys
  KEYBOARD_KEY_cb=!left         # Left Arrow key
  KEYBOARD_KEY_cd=!right        # Right Arrow key
