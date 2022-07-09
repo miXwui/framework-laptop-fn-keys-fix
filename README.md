@@ -66,6 +66,23 @@ To fix all the keys except `Brightness Down`, `Brightness Up`, and `Projector` u
 sudo cp 70-keyboard-framework-fix.hwdb /etc/udev/hwdb.d && sudo systemd-hwdb update && sudo udevadm trigger --verbose --sysname-match="event*" && sudo systemd-hwdb update && sudo udevadm trigger --verbose --sysname-match="event*" && udevadm info  /sys/class/input/event2
 ```
 
+### Uninstall
+
+1. Remove the custom udev rules file:
+
+   ```bash
+   rm /etc/udev/hwdb.d/70-keyboard-framework-fix.hwdb
+   ```
+
+2. Run:
+
+   ```bash
+   sudo systemd-hwdb update
+   sudo udevadm trigger --verbose --sysname-match="event*"
+   ```
+
+3. Then reboot.
+
 ## Brightness Down / Up keys fix
 
 ### [Link to custom driver](driver/)
