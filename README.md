@@ -1,5 +1,11 @@
 # Function keys stuck fix for Framework Laptop
 
+## **UPDATE: The issue seems to have been fixed in BIOS 3.09, so this is no longer needed**
+
+<https://community.frame.work/t/bios-3-09-beta-release/20085>
+
+***
+
 Keys that have another function ability can stick on Linux, as described in this post:  
 
 ## Fixing most keys by forcing synthetic key release

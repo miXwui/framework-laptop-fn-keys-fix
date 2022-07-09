@@ -1,5 +1,11 @@
 # Kernel driver to fix Brightness Up / Down getting stuck for the Framework laptop
 
+## **UPDATE: The issue seems to have been fixed in BIOS 3.09, so this is no longer needed**
+
+<https://community.frame.work/t/bios-3-09-beta-release/20085>
+
+***
+
 **Note: wasn't tested with secure boot enabled so, if on, this probably won't work without extra installation steps.**
 
 Thanks to these resources:
@@ -228,7 +234,7 @@ To remove for all kernels:
 `hid-framework/version` will be gone from  `dkms status`.
 
 Cleanup folder:  
-`sudo rm /usr/src/hid-framework-1.0/`
+`sudo rm -r /usr/src/hid-framework-1.0/`
 
 Adapted from:  
 <https://wiki.kubuntu.org/Kernel/Dev/DKMSPackaging>
