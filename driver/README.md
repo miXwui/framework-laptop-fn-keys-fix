@@ -138,7 +138,7 @@ Note: this will need to be reinstalled with a kernel update. See next section if
    hid_framework  ...
    ```
 
-Uninstall:  
+### Uninstall
 
 1. `sudo modprobe -r hid_framework`  
 2. `cd` into `driver` folder and run `sudo make uninstall`  
@@ -197,7 +197,8 @@ Using DKMS
 
 Brightness keys should now not stick, and the driver should persist across kernel updates.
 
-To uninstall:  
+### Uninstall
+
 `sudo dkms uninstall -m hid-framework -v 1.0`
 
 ```console
